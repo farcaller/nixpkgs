@@ -27,6 +27,8 @@ buildPythonPackage rec {
     sha256 = "sha256-Ong6NnUc7RY2j0CzuoZas5swaJ7YBW8e4jRqo4OaCw8=";
   };
 
+  patches = [ ./vimeo.patch ];
+
   propagatedBuildInputs = [ brotli certifi mutagen pycryptodomex websockets ];
 
   # Ensure these utilities are available in $PATH:

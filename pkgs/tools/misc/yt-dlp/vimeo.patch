@@ -1,0 +1,24 @@
+From d81660fa6634fdfccf2107521db906581f486682 Mon Sep 17 00:00:00 2001
+From: LeoniePhiline <22329650+LeoniePhiline@users.noreply.github.com>
+Date: Fri, 10 Feb 2023 13:26:35 +0100
+Subject: [PATCH] fix: #6149 vimeo playerConfig extraction - patch by @bashonly
+
+---
+ yt_dlp/extractor/vimeo.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/yt_dlp/extractor/vimeo.py b/yt_dlp/extractor/vimeo.py
+index 97b99fc5098c..fd1e68b874bd 100644
+--- a/yt_dlp/extractor/vimeo.py
++++ b/yt_dlp/extractor/vimeo.py
+@@ -834,8 +834,8 @@ def _real_extract(self, url):
+             raise
+ 
+         if '://player.vimeo.com/video/' in url:
+-            config = self._parse_json(self._search_regex(
+-                r'\b(?:playerC|c)onfig\s*=\s*({.+?})\s*;', webpage, 'info section'), video_id)
++            config = self._search_json(
++                r'\b(?:playerC|c)onfig\s*=', webpage, 'info section', video_id)
+             if config.get('view') == 4:
+                 config = self._verify_player_video_password(
+                     redirect_url, video_id, headers)
